@@ -1,0 +1,44 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+body {
+    color: #404E67;
+    background: #F5F7FA;
+    font-family: 'Open Sans', sans-serif;
+    
+}
+table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+.mat-dialog-container {
+    display: flex !important;
+    flex-direction: column;
+}
+
+.mat-dialog-container > * {
+    display: flex;
+    flex-direction: column;
+}
+
+.mat-dialog-content {
+    max-height: inherit !important;
+}
+
+.mat-dialog-actions {
+    display: block !important;
+    flex-grow: inherit;
+    flex-shrink: inherit;
+    padding: 12px 0 0 !important;
+
+    &:last-child {
+        margin-bottom: 0 !important;
+    }
+}
+
+.add-office-popup {
+    margin: 0 auto;
+}

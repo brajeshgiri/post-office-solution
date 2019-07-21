@@ -1,0 +1,19 @@
+<mat-nav-list>
+  <a mat-list-item routerLink="/post-office" (click)="onSidenavClose()">
+    <mat-icon>home</mat-icon> <span class="nav-caption">Home</span>
+  </a>
+  <a mat-list-item routerLink="/shipment" (click)="onSidenavClose()">
+    <mat-icon>assignment_ind</mat-icon> <span class="nav-caption">Shipment</span>
+  </a>
+  <a mat-list-item routerLink="/post-office" (click)="onSidenavClose()">
+    <mat-icon>account_balance</mat-icon><span class="nav-caption">Post Office</span>
+  </a>
+  <mat-list-item [matMenuTriggerFor]="menu">
+    <mat-icon>unfold_more</mat-icon>
+    <a matline>More...</a>
+  </mat-list-item>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="onSidenavClose()">Menu 1</button>
+    <button mat-menu-item (click)="onSidenavClose()">Menu 2</button>
+  </mat-menu>
+</mat-nav-list>

@@ -1,0 +1,12 @@
+.add-office-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .add-office-container > * {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+      width: 100%;
+  }
