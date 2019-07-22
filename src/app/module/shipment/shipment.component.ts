@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ShipmentService } from './shipment.service';
-import { MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatSort, MatPaginator, MatTableDataSource, MatDialog, MatDialogConfig } from '@angular/material';
 import { ShipmentModel, ShipmentTypeModel, WeightTypeModel } from './shipment.model';
 import { FormControl } from '@angular/forms';
 import { isNullOrUndefined } from 'util';
+import { AddEditShipmentComponent } from './add-edit-shipment/add-edit-shipment.component';
+import { ShipmentSaveModel } from './shipment-save.model';
 
 @Component({
   selector: 'app-shipment',
@@ -36,17 +38,14 @@ export class ShipmentComponent implements OnInit {
     office: null
   };
   constructor(
-    private shipmentService: ShipmentService
+    private shipmentService: ShipmentService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-
-    this.shipmentService.getShipmentList().subscribe(res => {
-      console.log("response", res)
-      this.dataSource.data = res;
-    });
+    this.getAllShipment();
 
     this.applyColumnsFilter();
     // this.dataSource.filterPredicate = (data, filter) => {
@@ -60,6 +59,14 @@ export class ShipmentComponent implements OnInit {
 
     this.dataSource.filterPredicate = this.createFilter();
 
+  }
+
+  getAllShipment(): void {
+
+    this.shipmentService.getShipmentList().subscribe(res => {
+      console.log("response", res)
+      this.dataSource.data = res;
+    });
   }
 
   applyColumnsFilter() {
@@ -122,7 +129,7 @@ export class ShipmentComponent implements OnInit {
       let searchTerms = JSON.parse(filter);
       console.log("search ter", searchTerms);
       return (
-        data.type && !Array.isArray(data.type) && data.type.name.toLowerCase().indexOf(searchTerms.type && searchTerms.type.name || '') !== -1
+        data.type && data.type.length > 0 && data.type[0].name.toLowerCase().indexOf(searchTerms.type && searchTerms.type.name || '') !== -1
         || (isNullOrUndefined(data.type) && isNullOrUndefined(searchTerms.type))
       )
         && (
@@ -150,15 +157,58 @@ export class ShipmentComponent implements OnInit {
   }
 
   onAdd(): void {
+    const config = new MatDialogConfig();
+    config.maxWidth = "500px";
+    config.panelClass = "add-office-popup"
+    config.position = {}
+    this.dialog.open(AddEditShipmentComponent, config).afterClosed().subscribe(result => {
+      if (result) {
+        this.getAllShipment();
+      }
+    });
 
   }
 
   onUpdate(shipmentModel: ShipmentModel): void {
+    const config = new MatDialogConfig();
+    const data = Object.assign({}, shipmentModel,
+      {
+        office: shipmentModel.office.id,
+        weight: shipmentModel.weight.id,
+        type: 0
+      });
+    if (Array.isArray(shipmentModel.type) && shipmentModel.type.length) {
+      data.type = shipmentModel.type[0].id;
+    } else if (shipmentModel.type) {
+      data.type = shipmentModel.type.id as any;
+    }
+    // data.type = 
+    config.maxWidth = "500px";
+    config.data = data;
+    config.panelClass = "add-office-popup"
+    config.position = {}
+    this.dialog.open(AddEditShipmentComponent, config).afterClosed().subscribe(result => {
+      if (result) {
+        this.getAllShipment();
+      }
+    });
 
   }
 
   onDelete(id: string): void {
+    this.shipmentService.deleteShipment(id).subscribe(res => {
+      this.getAllShipment();
+    },
+      err => {
+        this.handleError(err);
+      }
+    )
+  }
 
+  handleError(err) {
+    if (err.status === 200) {
+      this.getAllShipment();
+    }
   }
 
 }

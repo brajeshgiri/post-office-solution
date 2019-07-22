@@ -17,6 +17,8 @@ import { AppService } from './app.service';
 import { MaterialModule } from './common/material-module/material-module.module';
 import { SidenavListComponent } from './common/components/shared/navigation/sidenav-list/sidenav-list.component';
 import { HeaderComponent } from './common/components/shared/navigation/header/header.component';
+import { PostOfficeService } from './module/post-office/post-office.service';
+import { HttpClientModule } from '@angular/common/http';
 
 const appRoutes: Routes = [
   {
@@ -47,6 +49,8 @@ const appRoutes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
+
+    HttpClientModule,
     PageNotFoundModule,
     RouterModule.forRoot(
       appRoutes,

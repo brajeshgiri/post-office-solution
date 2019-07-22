@@ -1,3 +1,84 @@
-<p>
-  add-edit-shipment works!
-</p>
+<h1 mat-dialog-title>{{data ? "Edit": "Add"}} Shipment</h1>
+<div class="add-office-container">
+
+  <form [formGroup]="shipmentForm" (ngSubmit)="onSubmit(shipmentForm.value)" class="form">
+
+    <mat-dialog-content>
+
+      <mat-form-field class="form-element">
+        <mat-label>Shipment Type</mat-label>
+        <mat-select formControlName="type">
+          <mat-option *ngFor="let type of shipmentTypes" [value]="type.id">{{type.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="!type.valid && type.touched">
+          {{ titleAlert }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-element">
+        <mat-label>Origin</mat-label>
+        <mat-select formControlName="origin">
+          <mat-option *ngFor="let s of statusLst" [value]="s.value">{{s.status}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="!origin.valid && origin.touched">
+          {{ titleAlert }}
+        </mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field class="form-element">
+        <mat-label>Destination</mat-label>
+        <mat-select formControlName="destination">
+          <mat-option *ngFor="let s of statusLst" [value]="s.value">{{s.status}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="!destination.valid && destination.touched">
+          {{ titleAlert }}
+        </mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field class="form-element">
+        <mat-label>Delivered</mat-label>
+        <mat-select formControlName="delivered">
+          <mat-option [value]="false">Not Delivered</mat-option>
+          <mat-option [value]="true">Delivered</mat-option>
+        </mat-select>
+        <mat-error *ngIf="!delivered.valid && delivered.touched">
+          {{ titleAlert }}
+        </mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field class="form-element">
+        <mat-label>Weight</mat-label>
+        <mat-select formControlName="weight">
+          <mat-option *ngFor="let w of weightTypes" [value]="w.id">{{w.desc}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="!weight.valid && weight.touched">
+          {{ titleAlert }}
+        </mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field class="form-element">
+        <mat-label>Post Office</mat-label>
+        <mat-select formControlName="office">
+          <mat-option *ngFor="let p of postOfficeLst" [value]="p.id">{{p.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="!office.valid && office.touched">
+          {{ titleAlert }}
+        </mat-error>
+      </mat-form-field>
+
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!shipmentForm.valid">
+        Save
+      </button>
+      <button mat-raised-button (click)="onCancel($event)" color="secondary" type="button">
+        Cancel
+      </button>
+    </mat-dialog-actions>
+
+  </form>
+</div>

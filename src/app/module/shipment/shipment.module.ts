@@ -29,6 +29,7 @@ const routes: Routes = [
     ShipmentComponent,
     AddEditShipmentComponent
   ],
+  entryComponents: [AddEditShipmentComponent],
   providers: [ShipmentService],
   exports: [ShipmentComponent]
 })

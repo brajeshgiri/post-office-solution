@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   baseUrl: "http://localhost:3000/",
-  jsonBaseUrl: "",
+  jsonBaseUrl: "/assets/json/",
   isService: true,
   urls: {
     postOfficeListUrl: "office/list",
@@ -17,6 +17,10 @@ export const environment = {
     deleteShipmentUrl: "shipment/delete",
     saveShipmentUrl: "shipment/add",
     udpateShipmentUrl: "shipment/update",
+
+    shipmentTypesJsonUrl: "shipmentTypes.json",
+    weightTypesJsonUrl: "weightTypes.json",
+    statusTypesJsonUrl: "statusTypes.json",
   }
 };
 

@@ -9,7 +9,7 @@
       </mat-form-field>
     </th>
     <td>
-      <mat-cell *cdkCellDef="let row"> {{row.type.name}} </mat-cell>
+      <mat-cell *cdkCellDef="let row"> {{row.type.length > 0 ? row.type[0].name :  row.type.name}} </mat-cell>
     </td>
   </ng-container>
 
@@ -71,7 +71,8 @@
       </mat-form-field>
     </th>
     <td>
-      <mat-cell *cdkCellDef="let row"> {{row.deliveredv? "Delivered" : "Not Delivered"}} </mat-cell>
+      <mat-cell *cdkCellDef="let row">{{row.delivered ? "Delivered" : "Not Delivered"}} </mat-cell>
+
     </td>
   </ng-container>
 

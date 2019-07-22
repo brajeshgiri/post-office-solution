@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import * as data from './json/shipmentTypes.json';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,7 +7,6 @@ import * as data from './json/shipmentTypes.json';
 export class AppComponent {
   title = 'post-office-app';
   constructor() {
-    console.log("data", data)
   }
 
 }
